@@ -9,20 +9,23 @@ group = 'org.defendev'
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
-/*
- * I intend not to have ANY external depdencies, so I'm excluding mavenCentral().
- *
- */
 repositories {
   mavenCentral()
 //  mavenLocal()
 }
+
 
 dependencies {
   compileOnly group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '4.0.0'
   testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.9.1'
   testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
 }
+
+configurations {
+    // See: https://stackoverflow.com/a/61784124/509276
+    testImplementation.extendsFrom compileOnly
+}
+
 
 test {
   useJUnitPlatform()
