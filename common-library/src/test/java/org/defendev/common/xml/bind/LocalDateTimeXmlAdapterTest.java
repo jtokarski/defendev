@@ -45,5 +45,29 @@ public class LocalDateTimeXmlAdapterTest {
             .isEqualTo(LocalDateTime.of(2022, Month.FEBRUARY, 17, 21, 58, 59, 999_000_000));
     }
 
+    @Test
+    public void shouldUnmarshalBlankAsNull() throws Exception {
+        // given
+        final String xmlValue = "   ";
+
+        // when
+        final LocalDateTime unmarshalledValue = underTest.unmarshal(xmlValue);
+
+        // then
+        assertThat(unmarshalledValue).isNull();
+    }
+
+    @Test
+    public void shouldUnmarshalEmptyAsNull() throws Exception {
+        // given
+        final String xmlValue = "";
+
+        // when
+        final LocalDateTime unmarshalledValue = underTest.unmarshal(xmlValue);
+
+        // then
+        assertThat(unmarshalledValue).isNull();
+    }
+
 
 }
