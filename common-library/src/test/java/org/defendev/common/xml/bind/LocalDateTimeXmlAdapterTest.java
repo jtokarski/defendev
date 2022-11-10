@@ -69,5 +69,16 @@ public class LocalDateTimeXmlAdapterTest {
         assertThat(unmarshalledValue).isNull();
     }
 
+    @Test
+    public void shouldMarshalToIsoDateTime() throws Exception {
+        // given
+        final LocalDateTime javaValue = LocalDateTime.of(2019, Month.AUGUST, 31, 14, 29, 59);
+
+        // when
+        final String marshalledValue = underTest.marshal(javaValue);
+
+        // then
+        assertThat(marshalledValue).isEqualTo("2019-08-31T14:29:59");
+    }
 
 }
