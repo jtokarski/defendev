@@ -1,7 +1,6 @@
 package org.defendev.common.xml.bind;
 
-import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

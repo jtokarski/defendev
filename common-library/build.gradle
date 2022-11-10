@@ -16,7 +16,7 @@ repositories {
 
 
 dependencies {
-  compileOnly group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '4.0.0'
+  compileOnly group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '2.3.3'
   testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.9.1'
   testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
 }
