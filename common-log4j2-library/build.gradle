@@ -2,6 +2,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'signing'
 }
 
 group = 'org.defendev'
@@ -30,6 +31,15 @@ test {
     useJUnitPlatform()
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    options.addBooleanOption('html5', true)
+}
+
 publishing {
     publications {
         create 'defendevCommonLog4j2JarMaven', MavenPublication, {
@@ -38,6 +48,10 @@ publishing {
     }
 }
 
+signing {
+    useGpgCmd()
+    sign publishing.publications.defendevCommonLog4j2JarMaven
+}
 
 
 

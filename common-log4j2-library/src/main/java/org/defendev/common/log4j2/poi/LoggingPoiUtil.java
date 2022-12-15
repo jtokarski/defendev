@@ -15,7 +15,9 @@ import org.apache.logging.log4j.MarkerManager;
  *
  * For a POI to be visible in logs, a marker pattern have to be incorporated into the PatternLayout. Example
  * might be
+ * <pre>{@code
  *   <Layout type="PatternLayout" pattern="...   %notEmpty{[%markerSimpleName]}   ..." />
+ * }</pre>
  * which displays the marker without the parents like
  *   [poi_1c61b785]
  * We could also choose to display the parent, but this will make it more difficult to keep constant length
