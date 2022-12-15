@@ -26,6 +26,13 @@ import org.apache.logging.log4j.MarkerManager;
  */
 public class LoggingPoiUtil {
 
+    /**
+     * Concise idiom to a POI Marker
+     *
+     * @param id unique POI identificator. It's the invoker responsibility to keep it unique. Typically
+     * this would be a random int.
+     * @return the standarized, constant-length POI Marker
+     */
     public static Marker poi(int id) {
         /*
          * It's important the marker name is of guaranteed constant length. It will make position-based parsing
