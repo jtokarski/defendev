@@ -16,6 +16,9 @@ repositories {
 
 
 dependencies {
+    // todo: This should rather be 'implementation' than 'compileOnly' but I still have
+    //       to figure out the optimal approach (see documentation of Gradle Java Library plugin
+    //       https://docs.gradle.org/current/userguide/java_library_plugin.html)
     compileOnly group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.19.0'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.9.1'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
@@ -44,9 +47,49 @@ publishing {
     publications {
         create 'defendevCommonLog4j2JarMaven', MavenPublication, {
             from components.java
+            pom {
+                name = "${project.group}:${project.name}"
+                description = "Common utils specific to Log4J2"
+                url = "https://github.com/jtokarski/defendev"
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'jk_tokarski'
+                        name = 'Jozef Tokarski'
+                        email = 'jozef.tokarski@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/jtokarski/defendev.git'
+                    developerConnection = 'scm:git:ssh://github.com:jtokarski/defendev.git'
+                    url = 'http://github.com/jtokarski/defendev/tree/master'
+                }
+            }
+
+        }
+    }
+    repositories {
+        maven {
+            name 'sonatypeOssrh'
+            if (project.version.endsWith('-SNAPSHOT')) {
+                url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+            } else {
+                url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            }
+            allowInsecureProtocol false
+            credentials PasswordCredentials, {
+                username property('ossrhUsername')
+                password property('ossrhPassword')
+            }
         }
     }
 }
+
 
 signing {
     useGpgCmd()
