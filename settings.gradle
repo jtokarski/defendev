@@ -13,6 +13,8 @@ project(':common-log4j2-library').name = 'common-log4j2'
 include 'common-fixtures-library'
 project(':common-fixtures-library').name = 'common-fixtures'
 
+include 'common-spring6-library'
+project(':common-spring6-library').name = 'common-spring6'
 
 
 
