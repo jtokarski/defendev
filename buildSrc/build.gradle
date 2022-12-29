@@ -1,0 +1,14 @@
+
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+gradlePlugin {
+    plugins {
+        releaseBranches {
+            id = 'org.defendev.gradle.convention.common-library'
+            implementationClass = 'org.defendev.gradle.convention.CommonLibraryPlugin'
+        }
+    }
+}
+

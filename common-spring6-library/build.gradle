@@ -1,16 +1,10 @@
 
 plugins {
-    id 'java-library'
-    id 'maven-publish'
-    id 'signing'
+    id 'org.defendev.gradle.convention.common-library'
 }
 
-group = 'org.defendev'
-
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
-
-repositories {
-    mavenCentral()
+defendevCommonLibDsl {
+    pomName = "${project.group}:${project.name}"
+    pomDescription = 'Common utils specific to Spring 6'
 }
 
