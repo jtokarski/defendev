@@ -8,3 +8,7 @@ defendevCommonLibDsl {
     pomDescription = 'Common utils specific to Spring 6'
 }
 
+dependencies {
+    compileOnly group: 'org.springframework', name: 'spring-web', version: '6.0.3'
+}
+
