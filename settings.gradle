@@ -1,8 +1,8 @@
 
 rootProject.name = 'defendev'
 
-include 'common-library'  // Finally, this one should have no external dependencies (only dependency-less utils)
-project(':common-library').name = 'common'
+include 'common-jdk-library'
+project(':common-jdk-library').name = 'common-jdk'
 
 include 'common-log4j2-library'
 project(':common-log4j2-library').name = 'common-log4j2'

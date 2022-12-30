@@ -1,0 +1,14 @@
+
+plugins {
+    id 'org.defendev.gradle.convention.common-library'
+}
+
+defendevCommonLibDsl {
+    pomName = "${project.group}:${project.name}"
+    pomDescription = 'Common utils purely based on JDK and no other dependencies'
+}
+
+dependencies {
+
+}
+
