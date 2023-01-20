@@ -11,5 +11,6 @@ defendevCommonLibDsl {
 dependencies {
     implementation group: 'org.jetbrains', name: 'annotations', version: '23.1.0'
     compileOnly group: 'org.springframework', name: 'spring-web', version: '6.0.3'
+    compileOnly group: 'org.defendev', name: 'common-jdk', version: '0.0.2-SNAPSHOT'
 }
 

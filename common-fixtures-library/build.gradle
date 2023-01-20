@@ -9,8 +9,8 @@ defendevCommonLibDsl {
 }
 
 dependencies {
-    compileOnly group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '2.3.3'
-    compileOnly group: 'org.hibernate', name: 'hibernate-core', version: '5.6.10.Final'
+    compileOnly group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '4.0.0'
+    compileOnly group: 'org.hibernate.orm', name: 'hibernate-core', version: '6.1.6.Final'
     compileOnly group: 'org.defendev', name: 'common-jdk', version: '0.0.1'
 }
 
