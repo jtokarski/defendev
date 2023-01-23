@@ -6,10 +6,13 @@ plugins {
 defendevCommonLibDsl {
     pomName = "${project.group}:${project.name}"
     pomDescription = 'Common utils purely based on JDK and no other dependencies. ' +
-        'Only exception being for org.jetbrains:annotations for building stratgic Kotlin language compatibility.'
+        'Only exception being for org.jetbrains:annotations for building stratgic Kotlin language compatibility.' +
+        'Another only-exception is Apache Commons Lang3.'
 }
 
 dependencies {
     implementation group: 'org.jetbrains', name: 'annotations', version: '23.1.0'
+    api 'org.apache.commons:commons-lang3:3.12.0'
 }
+
 
