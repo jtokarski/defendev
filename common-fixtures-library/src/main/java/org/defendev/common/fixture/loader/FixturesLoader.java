@@ -1,5 +1,6 @@
 package org.defendev.common.fixture.loader;
 
+import jakarta.persistence.EntityManager;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import org.defendev.common.domain.HasId;
@@ -7,8 +8,6 @@ import org.defendev.common.fixture.loader.exception.DuplicateHardcodedIdExceptio
 import org.defendev.common.fixture.loader.exception.MissingActualIdForHardcodedIdException;
 import org.defendev.common.fixture.loader.exception.MissingHardcodedIdException;
 import org.defendev.common.fixture.loader.exception.UnableToLoadByActualIdException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import java.io.InputStream;
 import java.io.Serializable;
@@ -25,7 +24,7 @@ public abstract class FixturesLoader<E extends HasId<ID>, ID extends Serializabl
 
     private final Class<E> entityClazz;
 
-    protected SessionFactory sessionFactory;
+    protected EntityManager entityManager;
 
     protected Unmarshaller unmarshaller;
 
@@ -33,11 +32,11 @@ public abstract class FixturesLoader<E extends HasId<ID>, ID extends Serializabl
 
     protected final String resourcePath;
 
-    public FixturesLoader(String resourcePath, SessionFactory sessionFactory, Class<E> entityClazz)
+    public FixturesLoader(String resourcePath, EntityManager entityManager, Class<E> entityClazz)
         throws JAXBException
     {
         this.entityClazz = entityClazz;
-        this.sessionFactory = sessionFactory;
+        this.entityManager = entityManager;
         this.resourcePath = resourcePath;
         unmarshaller = setUpUnmarshaller();
     }
@@ -58,13 +57,18 @@ public abstract class FixturesLoader<E extends HasId<ID>, ID extends Serializabl
         }
         newEntity.setId(null);
         /*
+         * LEGACY NOTE:
          * How did I know this is the correct way of obtaining Session inside @Transactional method?
          * It's recommended by Javadoc of HibernateTransactionManager.
          * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/orm/hibernate5/HibernateTransactionManager.html
          *
+         * final Session session = sessionFactory.getCurrentSession();
+         * final ID actualId = (ID) session.save(newEntity);
+         *
          */
-        final Session session = sessionFactory.getCurrentSession();
-        final ID actualId = (ID) session.save(newEntity);
+        entityManager.persist(newEntity);
+        entityManager.flush();
+        final ID actualId = newEntity.getId();
         if (hardcodedToActualIds.containsKey(hardcodedId)) {
             throw new DuplicateHardcodedIdException(entityClazz, hardcodedId);
         }
@@ -78,8 +82,7 @@ public abstract class FixturesLoader<E extends HasId<ID>, ID extends Serializabl
         if (isNull(actualId)) {
             throw new MissingActualIdForHardcodedIdException(entityClazz, hardcodedId);
         }
-        final Session session = sessionFactory.getCurrentSession();
-        final E loadedEntity = session.load(entityClazz, actualId);
+        final E loadedEntity = entityManager.getReference(entityClazz, actualId);
         if (isNull(loadedEntity)) {
             throw new UnableToLoadByActualIdException(entityClazz, actualId);
         }
