@@ -16,6 +16,8 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.*
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
 import org.gradle.api.tasks.TaskCollection
+import org.gradle.api.tasks.compile.JavaCompile
+import org.gradle.api.tasks.compile.CompileOptions
 import org.gradle.api.tasks.javadoc.Javadoc
 import org.gradle.api.tasks.testing.Test
 import org.gradle.external.javadoc.StandardJavadocDocletOptions
@@ -50,8 +52,14 @@ class CommonLibraryPlugin implements Plugin<Project> {
         javaPluginExtension.withJavadocJar();
         javaPluginExtension.withSourcesJar();
 
+        final TaskCollection<JavaCompile> javaCompileTasks = project.tasks.withType(JavaCompile)
+        javaCompileTasks.configureEach { JavaCompile javaCompileTask ->
+            final CompileOptions options = javaCompileTask.options
+            options.compilerArgs.addAll('-Xlint:deprecation', '-Xlint:unchecked')
+        }
+
         final TaskCollection<Javadoc> javadocTasks = project.tasks.withType(Javadoc)
-        javadocTasks.configureEach { (Javadoc javadocTask) -> (javadocTask.options as StandardJavadocDocletOptions)
+        javadocTasks.configureEach { Javadoc javadocTask -> (javadocTask.options as StandardJavadocDocletOptions)
             .addBooleanOption('html5', true)
         }
 
