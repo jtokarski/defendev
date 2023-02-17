@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 
 public class DefendevJavaTimeModule extends Module {
@@ -23,6 +24,7 @@ public class DefendevJavaTimeModule extends Module {
     public void setupModule(SetupContext context) {
         final SimpleSerializers serializers = new SimpleSerializers();
         serializers.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
+        serializers.addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer());
         context.addSerializers(serializers);
     }
 }
