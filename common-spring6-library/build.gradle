@@ -11,6 +11,9 @@ defendevCommonLibDsl {
 dependencies {
     implementation group: 'org.jetbrains', name: 'annotations', version: '23.1.0'
     compileOnly group: 'org.springframework', name: 'spring-web', version: '6.0.3'
+    compileOnly group: 'org.springframework.security', name: 'spring-security-web', version: '6.0.1'
+    compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '6.0.0'
+    compileOnly group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.19.0'
     // I definitely need better version management
     compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
     compileOnly group: 'org.defendev', name: 'common-jdk', version: '0.0.2-SNAPSHOT'
