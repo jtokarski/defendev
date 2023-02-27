@@ -3,8 +3,8 @@ package org.defendev.common.spring6.core.convert;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.defendev.common.domain.exception.QueryValidationException;
-import org.defendev.common.domain.query.SortOrder;
-import org.defendev.common.domain.query.SortDirection;
+import org.defendev.common.domain.query.sort.SortOrder;
+import org.defendev.common.domain.query.sort.SortDirection;
 
 
 import java.util.List;

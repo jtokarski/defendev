@@ -1,6 +1,10 @@
-package org.defendev.common.domain.query;
+package org.defendev.common.domain.query.sort;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
+
 
 
 public class SortOrder {
@@ -9,7 +13,11 @@ public class SortOrder {
 
     private final String property;
 
-    public SortOrder(SortDirection direction, String property) {
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public SortOrder(
+        @JsonProperty("direction") SortDirection direction,
+        @JsonProperty("property") String property
+    ) {
         this.direction = direction;
         this.property = property;
     }
