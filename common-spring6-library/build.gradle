@@ -12,6 +12,8 @@ dependencies {
     implementation group: 'org.jetbrains', name: 'annotations', version: '23.1.0'
     compileOnly group: 'org.springframework', name: 'spring-web', version: '6.0.3'
     compileOnly group: 'org.springframework.security', name: 'spring-security-web', version: '6.0.1'
+    compileOnly group: 'org.springframework.data', name: 'spring-data-commons', version: '3.0.2'
+    compileOnly group: 'org.springframework.data', name: 'spring-data-jpa', version: '3.0.2'
     compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '6.0.0'
     compileOnly group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.19.0'
     // I definitely need better version management
