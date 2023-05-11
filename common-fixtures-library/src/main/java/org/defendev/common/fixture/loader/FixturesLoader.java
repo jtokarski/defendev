@@ -103,4 +103,7 @@ public abstract class FixturesLoader<E extends HasId<ID>, ID extends Serializabl
         ).collect(Collectors.toSet());
     }
 
+    public ID getActualId(ID hardcodedId) {
+        return hardcodedToActualIds.get(hardcodedId);
+    }
 }
