@@ -2,6 +2,7 @@ package org.defendev.common.jackson;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
 
 import java.time.LocalDateTime;
@@ -26,5 +27,9 @@ public class DefendevJavaTimeModule extends Module {
         serializers.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         serializers.addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer());
         context.addSerializers(serializers);
+
+        final SimpleDeserializers deserializers = new SimpleDeserializers();
+        deserializers.addDeserializer(ZonedDateTime.class, new ZonedDateTimeDeserializer());
+        context.addDeserializers(deserializers);
     }
 }

@@ -1,4 +1,4 @@
-package org.defendev.common.domain.useridentity;
+package org.defendev.common.domain.iam;
 
 import java.io.Serializable;
 

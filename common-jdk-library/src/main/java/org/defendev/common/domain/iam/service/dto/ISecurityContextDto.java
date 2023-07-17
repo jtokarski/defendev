@@ -1,4 +1,4 @@
-package org.defendev.common.domain.useridentity.service.dto;
+package org.defendev.common.domain.iam.service.dto;
 
 /*
  * By design, a subset of org.springframework.security.core.context.SecurityContext interface.

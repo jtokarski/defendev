@@ -1,14 +1,18 @@
 package org.defendev.common.domain.query.result;
 
 
+
 public class QueryResult<T> {
 
     public enum Status {
         REQUEST_INVALID,
-        INSUFFICIENT_PERMISSIONS,
         NOT_FOUND,
         EMPTY,
         SUCCESS;
+
+        // Intentionally removing (comment-out) the INSUFFICIENT_PERMISSIONS value as I favour immediate
+        // throwing of org.springframework.security.access.AccessDeniedException.
+        // INSUFFICIENT_PERMISSIONS,
     }
 
     public static <T> QueryResult<T> notFound() {
@@ -21,8 +25,15 @@ public class QueryResult<T> {
 
     private final Status status;
 
+    /*
+     * Meant to be an additional clarification to the 'status' field. Also, with growing number of various
+     * use cases, expected to evolve into new standardized values in the 'Status' enum.
+     */
     private final String statusDetail;
 
+    /*
+     * The 'data' is usually (but not always) some implementation of IBaseDto or ICollectionResRep
+     */
     private final T data;
 
     public QueryResult(Status status, String statusDetail, T data) {
