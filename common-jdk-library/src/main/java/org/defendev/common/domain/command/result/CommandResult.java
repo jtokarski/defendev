@@ -25,16 +25,16 @@ public class CommandResult<T> {
         // INSUFFICIENT_PERMISSIONS,
     }
 
-    public static <T> CommandResult<T> requestInvalid(String statusDetail) {
-        return new CommandResult<>(Status.REQUEST_INVALID, statusDetail, null);
+    public static <T> CommandResult<T> requestInvalid(String statusDetail, String statusUserMessage) {
+        return new CommandResult<>(Status.REQUEST_INVALID, statusDetail, statusUserMessage, null);
     }
 
     public static <T> CommandResult<T> aggregateNotFound() {
-        return new CommandResult<>(Status.AGGREGATE_NOT_FOUND, null, null);
+        return new CommandResult<>(Status.AGGREGATE_NOT_FOUND, null, null, null);
     }
 
     public static <T> CommandResult<T> success(T data) {
-        return new CommandResult<>(Status.SUCCESS, null, data);
+        return new CommandResult<>(Status.SUCCESS, null, null, data);
     }
 
     private final Status status;
@@ -45,11 +45,18 @@ public class CommandResult<T> {
      */
     private final String statusDetail;
 
+    /*
+     * Message related with (supplementing) the 'status' in a form that can be displayed to the end user.
+     * Usually will be present for 'status' different than SUCCESS
+     */
+    private final String statusUserMessage;
+
     private final T data;
 
-    public CommandResult(Status status, String statusDetail, T data) {
+    public CommandResult(Status status, String statusDetail, String statusUserMessage, T data) {
         this.status = status;
         this.statusDetail = statusDetail;
+        this.statusUserMessage = statusUserMessage;
         this.data = data;
     }
 
@@ -63,6 +70,10 @@ public class CommandResult<T> {
 
     public String getStatusDetail() {
         return statusDetail;
+    }
+
+    public String getStatusUserMessage() {
+        return statusUserMessage;
     }
 
     public T getData() {

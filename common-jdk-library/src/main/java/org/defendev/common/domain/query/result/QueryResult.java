@@ -16,11 +16,11 @@ public class QueryResult<T> {
     }
 
     public static <T> QueryResult<T> notFound() {
-        return new QueryResult<>(Status.NOT_FOUND, null, null);
+        return new QueryResult<>(Status.NOT_FOUND, null, null, null);
     }
 
     public static <T> QueryResult<T> success(T data) {
-        return new QueryResult<>(Status.SUCCESS, null, data);
+        return new QueryResult<>(Status.SUCCESS, null, null, data);
     }
 
     private final Status status;
@@ -32,13 +32,20 @@ public class QueryResult<T> {
     private final String statusDetail;
 
     /*
+     * Message related with (supplementing) the 'status' in a form that can be displayed to the end user.
+     * Usually will be present for 'status' different than SUCCESS
+     */
+    private final String statusUserMessage;
+
+    /*
      * The 'data' is usually (but not always) some implementation of IBaseDto or ICollectionResRep
      */
     private final T data;
 
-    public QueryResult(Status status, String statusDetail, T data) {
+    public QueryResult(Status status, String statusDetail, String statusUserMessage, T data) {
         this.status = status;
         this.statusDetail = statusDetail;
+        this.statusUserMessage = statusUserMessage;
         this.data = data;
     }
 
@@ -52,6 +59,10 @@ public class QueryResult<T> {
 
     public String getStatusDetail() {
         return statusDetail;
+    }
+
+    public String getStatusUserMessage() {
+        return statusUserMessage;
     }
 
     public T getData() {

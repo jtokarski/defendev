@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Objects.nonNull;
+
 
 
 public class ErrorWrapperDto {
@@ -12,11 +14,19 @@ public class ErrorWrapperDto {
     private final List<ErrorDto> errors;
 
     public ErrorWrapperDto(ErrorDto primaryError) {
-        errors = List.of(primaryError);
+        if (nonNull(primaryError)) {
+            errors = List.of(primaryError);
+        } else {
+            this.errors = List.of();
+        }
     }
 
     public ErrorWrapperDto(List<ErrorDto> errors) {
-        this.errors = errors;
+        if (nonNull(errors)) {
+            this.errors = errors;
+        } else {
+            this.errors = List.of();
+        }
     }
 
     public ErrorWrapperDto append(ErrorWrapperDto wrapperDto) {
