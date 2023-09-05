@@ -1,0 +1,24 @@
+pipeline {
+
+  agent any
+
+  parameters {
+    gitParameter(name: 'GIT_BRANCH_TAG', type: 'PT_BRANCH_TAG',
+      branch: '', branchFilter: 'origin/(.*)', defaultValue: 'master',
+      description: '', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'ASCENDING', listSize: '0')
+  }
+
+  stages {
+
+    stage('Gradle build') {
+      steps {
+        checkout scm: scmGit(
+            branches: [[name: "origin/${params.GIT_BRANCH_TAG}"]]
+        )
+        sh './gradlew build'
+      }
+    }
+
+  }
+
+}
