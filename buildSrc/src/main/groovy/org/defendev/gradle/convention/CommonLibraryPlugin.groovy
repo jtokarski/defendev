@@ -80,6 +80,10 @@ class CommonLibraryPlugin implements Plugin<Project> {
 
         project.dependencies.add(JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME,
             'org.junit.jupiter:junit-jupiter:5.9.1')
+        // See: https://docs.gradle.org/8.3/userguide/upgrading_version_8.html#test_framework_implementation_dependencies
+        project.dependencies.add(JavaPlugin.TEST_RUNTIME_ONLY_CONFIGURATION_NAME,
+            'org.junit.platform:junit-platform-launcher')
+
         project.dependencies.add(JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME,
             'org.assertj:assertj-core:3.23.1')
 

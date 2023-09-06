@@ -1,8 +1,9 @@
 package org.defendev.common.spring6.core.convert;
 
 import org.apache.commons.lang3.StringUtils;
+import org.defendev.common.domain.exception.QueryFailedException;
+import org.defendev.common.domain.query.result.QueryResult;
 import org.springframework.core.convert.converter.Converter;
-import org.defendev.common.domain.exception.QueryValidationException;
 import org.defendev.common.domain.query.sort.SortOrder;
 import org.defendev.common.domain.query.sort.SortDirection;
 
@@ -40,8 +41,8 @@ public class SortOrdersQueryParamConverter implements Converter<String, List<Sor
             (String orderString) -> {
                 final String[] propertyAndDirection = StringUtils.split(orderString, ":", 2);
                 if (isNull(propertyAndDirection) || 2 != propertyAndDirection.length) {
-                    throw new QueryValidationException("Invalid sort specified.",
-                        QueryValidationException.Status.REQUEST_INVALID);
+                    throw new QueryFailedException(new QueryResult(QueryResult.Status.REQUEST_INVALID,
+                        "Invalid sort specified", null, null));
                 }
                 return new SortOrder(SortDirection.valueOf(propertyAndDirection[1]), propertyAndDirection[0]);
             }

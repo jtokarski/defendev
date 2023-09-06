@@ -1,7 +1,7 @@
 package org.defendev.common.spring6.core.convert;
 
-import org.defendev.common.domain.query.SortOrder;
-import org.defendev.common.domain.query.SortDirection;
+import org.defendev.common.domain.query.sort.SortOrder;
+import org.defendev.common.domain.query.sort.SortDirection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
@@ -21,7 +21,7 @@ public class SortOrdersQueryParamConverterTest {
         final SortOrdersQueryParamConverter underTest = new SortOrdersQueryParamConverter();
 
         // given
-        final String specificationString = "lastName:ASC,firstName:DESC,createdAt:ASC";
+        final String specificationString = "lastName:asc,firstName:desc,createdAt:asc";
 
         // when
         final List<SortOrder> sortOrders = underTest.convert(specificationString);
@@ -31,9 +31,9 @@ public class SortOrdersQueryParamConverterTest {
             .isNotEmpty()
             .hasSize(3)
             .containsExactly(
-                new SortOrder(SortDirection.ASC, "lastName"),
-                new SortOrder(SortDirection.DESC, "firstName"),
-                new SortOrder(SortDirection.ASC, "createdAt")
+                new SortOrder(SortDirection.asc, "lastName"),
+                new SortOrder(SortDirection.desc, "firstName"),
+                new SortOrder(SortDirection.asc, "createdAt")
             );
     }
 
@@ -43,7 +43,7 @@ public class SortOrdersQueryParamConverterTest {
         final SortOrdersQueryParamConverter underTest = new SortOrdersQueryParamConverter();
 
         // given
-        final String specificationString = "createdAt:ASC";
+        final String specificationString = "createdAt:asc";
 
         // when
         final List<SortOrder> sortOrders = underTest.convert(specificationString);
@@ -53,7 +53,7 @@ public class SortOrdersQueryParamConverterTest {
             .isNotEmpty()
             .hasSize(1)
             .containsExactly(
-                new SortOrder(SortDirection.ASC, "createdAt")
+                new SortOrder(SortDirection.asc, "createdAt")
             );
     }
 
