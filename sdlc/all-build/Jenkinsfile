@@ -15,7 +15,9 @@ pipeline {
         checkout scm: scmGit(
             branches: [[name: "origin/${params.GIT_BRANCH_TAG}"]]
         )
-        sh './gradlew build'
+        withGradle {
+          sh './gradlew build'
+        }
       }
     }
 
