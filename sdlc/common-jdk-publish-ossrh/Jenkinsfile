@@ -1,0 +1,36 @@
+pipeline {
+
+  agent any
+
+  environment {
+      SIGNING_GNUPG_KEY_NAME = credentials('gnupg-keyName')
+      SIGNING_GNUPG_PASSPHRASE = credentials('gnupg-passphrase')
+      OSSRH_CREDENTIALS = credentials('sonatype-ossrh')
+  }
+
+  parameters {
+    gitParameter(name: 'GIT_BRANCH_TAG', type: 'PT_BRANCH_TAG',
+      branch: '', branchFilter: 'origin/(.*)', defaultValue: 'master',
+      description: '', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'ASCENDING', listSize: '0')
+  }
+
+  stages {
+    stage('Gradle build') {
+      steps {
+        checkout scm: scmGit(
+          branches: [[name: "origin/${params.GIT_BRANCH_TAG}"]]
+        )
+        withGradle {
+          sh label: 'Gradle Publish', script: '''
+            ./gradlew :clean :common-jdk:publishDefendevLibJarMvnPublicationToSonatypeOssrhRepository \
+              -Psigning.gnupg.keyName="${SIGNING_GNUPG_KEY_NAME}" \
+              -Psigning.gnupg.passphrase="${SIGNING_GNUPG_PASSPHRASE}" \
+              -PossrhUsername="${OSSRH_CREDENTIALS_USR}" \
+              -PossrhPassword="${OSSRH_CREDENTIALS_PSW}"
+          '''
+        }
+      }
+    }
+  }
+
+}

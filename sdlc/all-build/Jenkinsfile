@@ -8,6 +8,12 @@ pipeline {
       description: '', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'ASCENDING', listSize: '0')
   }
 
+  options {
+    buildDiscarder(
+      logRotator(daysToKeepStr: '-1', numToKeepStr: '5', artifactNumToKeepStr: '-1', artifactNumToKeep: '-1')
+    )
+  }
+
   stages {
 
     stage('Gradle build') {

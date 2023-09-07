@@ -16,4 +16,4 @@ dependencies {
     api 'org.apache.commons:commons-lang3:3.12.0'
 }
 
-
+logger.quiet "project.version: ${project.version}"
