@@ -20,6 +20,8 @@ public interface IDefendevUserDetails {
 
     String getUsername();
 
+    Set<String> getRoles();
+
     Map<Privilege, Set<Long>> getPrivilegeToOwnershipUnit();
 
 }
