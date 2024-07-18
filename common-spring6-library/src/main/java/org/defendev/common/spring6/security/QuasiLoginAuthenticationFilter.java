@@ -12,10 +12,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.io.IOException;
 import java.util.List;
-
 
 
 
@@ -25,7 +25,7 @@ public class QuasiLoginAuthenticationFilter extends AbstractAuthenticationProces
 
     public QuasiLoginAuthenticationFilter(String defaultFilterProcessesUrl,
                                           AuthenticationManager authenticationManager) {
-        super(defaultFilterProcessesUrl, authenticationManager);
+        super(new AntPathRequestMatcher(defaultFilterProcessesUrl, "POST"), authenticationManager);
     }
 
     @Override
@@ -40,13 +40,7 @@ public class QuasiLoginAuthenticationFilter extends AbstractAuthenticationProces
         final String quasiUsername = request.getParameter("quasiUsername");
         final String quasiFullName = request.getParameter("quasiFullName");
 
-        final UserDetails quasiUser = User.builder()
-            .username(quasiUsername)
-            .password("quasi")
-            .accountExpired(false)
-            .accountLocked(false)
-            .authorities(List.<GrantedAuthority>of())
-            .build();
+        final UserDetails quasiUser = new QuasiUserDetails(quasiUsername);
 
         final QuasiLoginAuthenticationToken token = new QuasiLoginAuthenticationToken(quasiUser, List.of(), false);
 
