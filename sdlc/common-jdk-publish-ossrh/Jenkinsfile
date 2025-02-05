@@ -1,5 +1,10 @@
 pipeline {
 
+  //
+  // edit 2025-02-05:
+  // This Jenkinsfile is OBSOLETE. To be migrated to one "main-checkout" approach.
+  //
+
   agent any
 
   environment {

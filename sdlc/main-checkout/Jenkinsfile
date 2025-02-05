@@ -1,11 +1,10 @@
 pipeline {
 
-  //
-  // edit 2025-02-05:
-  // This Jenkinsfile is OBSOLETE. To be migrated to one "main-checkout" approach.
-  //
+  // Defendev_main_checkout
 
-  agent any
+  agent {
+    label 'built-in'
+  }
 
   parameters {
     gitParameter(name: 'GIT_BRANCH_TAG', type: 'PT_BRANCH_TAG',
@@ -20,18 +19,21 @@ pipeline {
   }
 
   stages {
-
-    stage('Gradle build') {
+    stage('Checkout PBook Git repo') {
       steps {
         checkout scm: scmGit(
-            branches: [[name: "origin/${params.GIT_BRANCH_TAG}"]]
-        )
-        withGradle {
-          sh './gradlew build'
-        }
+          branches: [[name: "origin/${params.GIT_BRANCH_TAG}"]],
+          doGenerateSubmoduleConfigurations: false,
+          extensions: [],
+          gitTool: 'Default',
+          submoduleCfg: [],
+          userRemoteConfigs: [[
+            credentialsId: 'cred.jenkins-ssh-key',
+            url: 'git@github.com:jtokarski/defendev.git'
+          ]]
+        ), poll: false
       }
     }
-
   }
 
 }
