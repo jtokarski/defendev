@@ -1,12 +1,14 @@
 package org.defendev.common.domain.query.filter;
 
+import org.defendev.common.domain.exception.QueryFailedException;
+import org.defendev.common.domain.query.result.QueryResult;
 
 
 public abstract class PropertyFilter {
 
-    private final String property;
+    protected final String property;
 
-    private final Operator operator;
+    protected final Operator operator;
 
     public PropertyFilter(String property, Operator operator) {
         this.property = property;
@@ -20,4 +22,7 @@ public abstract class PropertyFilter {
     public Operator getOperator() {
         return operator;
     }
+
+    public abstract void validate() throws QueryFailedException;
+
 }

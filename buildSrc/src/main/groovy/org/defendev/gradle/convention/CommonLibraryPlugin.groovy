@@ -141,6 +141,16 @@ class CommonLibraryPlugin implements Plugin<Project> {
             } as Action<PasswordCredentials>)
         } as Action<MavenArtifactRepository>);
 
+        publishingExtension.repositories.maven({ MavenArtifactRepository mavenRepo ->
+            mavenRepo.name = 'GitHubPackages'
+            mavenRepo.url = 'https://maven.pkg.github.com/jtokarski/defendev'
+            mavenRepo.allowInsecureProtocol = false;
+            mavenRepo.credentials({ PasswordCredentials credentials ->
+                credentials.username = project.property('gitHubPackagesUsername')
+                credentials.password = project.property('gitHubPackagesPassword')
+            } as Action<PasswordCredentials>)
+        } as Action<MavenArtifactRepository>);
+
         project.getPluginManager().apply(SigningPlugin)
         final SigningExtension signingExtension = project.getExtensions().getByType(SigningExtension)
         signingExtension.useGpgCmd()
