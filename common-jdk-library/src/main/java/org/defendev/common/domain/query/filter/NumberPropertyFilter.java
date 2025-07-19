@@ -12,33 +12,33 @@ import static org.defendev.common.domain.query.result.QueryResult.Status.REQUEST
 
 /**
  * See NumberFilterModel in
- *   https://github.com/ag-grid/ag-grid/blob/latest/grid-community-modules/core/src/ts/filter/provided/number/numberFilter.ts
+ *   https://github.com/ag-grid/ag-grid/blob/latest/packages/ag-grid-community/src/filter/provided/number/iNumberFilter.ts
  *
  */
 public class NumberPropertyFilter extends PropertyFilter {
 
-    private final Number value;
+    private final Number filter;
 
-    private final Number valueTo;
+    private final Number filterTo;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public NumberPropertyFilter(
         @JsonProperty("property") String property,
         @JsonProperty("operator") Operator operator,
-        @JsonProperty("value") Number value,
-        @JsonProperty("valueTo") Number valueTo
+        @JsonProperty("filter") Number filter,
+        @JsonProperty("filterTo") Number filterTo
     ) {
         super(property, operator);
-        this.value = value;
-        this.valueTo = valueTo;
+        this.filter = filter;
+        this.filterTo = filterTo;
     }
 
-    public Number getValue() {
-        return value;
+    public Number getFilter() {
+        return filter;
     }
 
-    public Number getValueTo() {
-        return valueTo;
+    public Number getFilterTo() {
+        return filterTo;
     }
 
     @Override
@@ -47,30 +47,30 @@ public class NumberPropertyFilter extends PropertyFilter {
         specRequireNonNull(operator, "operator is required for NumberPropertyFilter");
         switch (operator) {
             case equals:
-                specRequireNonNull(value, "value is required for equals operator in NumberPropertyFilter");
+                specRequireNonNull(filter, "value is required for equals operator in NumberPropertyFilter");
                 return;
             case notEqual:
-                specRequireNonNull(value, "value is required for notEqual operator in NumberPropertyFilter");
+                specRequireNonNull(filter, "value is required for notEqual operator in NumberPropertyFilter");
                 return;
             case lessThan:
-                specRequireNonNull(value, "value is required for lessThan operator in NumberPropertyFilter");
+                specRequireNonNull(filter, "value is required for lessThan operator in NumberPropertyFilter");
                 return;
             case lessThanOrEqual:
-                specRequireNonNull(value,
+                specRequireNonNull(filter,
                     "value is required for lessThanOrEqual operator in NumberPropertyFilter");
                 return;
             case greaterThan:
-                specRequireNonNull(value,
+                specRequireNonNull(filter,
                     "value is required for greaterThan operator in NumberPropertyFilter");
                 return;
             case greaterThanOrEqual:
-                specRequireNonNull(value,
+                specRequireNonNull(filter,
                     "value is required for greaterThanOrEqual operator in NumberPropertyFilter");
                 return;
             case inRange:
-                specRequireNonNull(value,
+                specRequireNonNull(filter,
                     "value is required for inRange operator in NumberPropertyFilter");
-                specRequireNonNull(valueTo,
+                specRequireNonNull(filterTo,
                     "valueTo is required for inRange operator in NumberPropertyFilter");
                 return;
             case blank:

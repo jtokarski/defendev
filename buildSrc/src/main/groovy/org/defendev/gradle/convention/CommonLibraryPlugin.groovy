@@ -64,6 +64,15 @@ class CommonLibraryPlugin implements Plugin<Project> {
         }
 
         project.repositories.mavenCentral()
+        project.repositories.maven({ mavenRepo ->
+            mavenRepo.name = 'GitHubPackages'
+            mavenRepo.url = 'https://maven.pkg.github.com/jtokarski/defendev'
+            mavenRepo.allowInsecureProtocol = false
+            mavenRepo.credentials({ PasswordCredentials credentials ->
+                credentials.username = project.property('gitHubPackagesReadUsername')
+                credentials.password = project.property('gitHubPackagesReadPassword')
+            } as Action<PasswordCredentials>)
+        } as Action<MavenArtifactRepository>)
 
         /*
          * The below is meant to be type-safe (type-explicit) equivalent of

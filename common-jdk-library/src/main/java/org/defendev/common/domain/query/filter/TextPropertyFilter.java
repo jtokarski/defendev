@@ -12,33 +12,33 @@ import static org.defendev.common.domain.query.result.QueryResult.Status.REQUEST
 
 /**
  * See TextFilterModel in
- *   https://github.com/ag-grid/ag-grid/blob/latest/grid-community-modules/core/src/ts/filter/provided/text/textFilter.ts
+ *   https://github.com/ag-grid/ag-grid/blob/latest/packages/ag-grid-community/src/filter/provided/text/iTextFilter.ts
  *
  */
 public class TextPropertyFilter extends PropertyFilter {
 
-    private final String value;
+    private final String filter;
 
-    private final String valueTo;
+    private final String filterTo;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public TextPropertyFilter(
         @JsonProperty("property") String property,
         @JsonProperty("operator") Operator operator,
-        @JsonProperty("value") String value,
-        @JsonProperty("valueTo") String valueTo
+        @JsonProperty("filter") String filter,
+        @JsonProperty("filterTo") String filterTo
     ) {
         super(property, operator);
-        this.value = value;
-        this.valueTo = valueTo;
+        this.filter = filter;
+        this.filterTo = filterTo;
     }
 
-    public String getValue() {
-        return value;
+    public String getFilter() {
+        return filter;
     }
 
-    public String getValueTo() {
-        return valueTo;
+    public String getFilterTo() {
+        return filterTo;
     }
 
     @Override
@@ -50,10 +50,10 @@ public class TextPropertyFilter extends PropertyFilter {
             case notBlank:
                 return;
             case contains:
-                specRequireNonNull(value, "value is required for contains operator in TextPropertyFilter");
+                specRequireNonNull(filter, "value is required for contains operator in TextPropertyFilter");
                 return;
             case notContains:
-                specRequireNonNull(value, "value is required for notContains operator in TextPropertyFilter");
+                specRequireNonNull(filter, "value is required for notContains operator in TextPropertyFilter");
                 return;
             default:
                 final QueryResult<Void> queryResult = new QueryResult<>(
