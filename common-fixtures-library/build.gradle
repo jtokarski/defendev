@@ -9,8 +9,8 @@ defendevCommonLibDsl {
 }
 
 dependencies {
-    api group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '4.0.0'
-    api group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '3.0.0'
-    compileOnly group: 'org.defendev', name: 'common-jdk', version: '0.0.1'
+    api 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
+    api 'jakarta.persistence:jakarta.persistence-api:3.0.0'
+    compileOnly 'org.defendev:common-jdk:0.0.12'
 }
 

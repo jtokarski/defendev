@@ -21,9 +21,9 @@ dependencies {
     // todo: This should rather be 'implementation' than 'compileOnly' but I still have
     //       to figure out the optimal approach (see documentation of Gradle Java Library plugin
     //       https://docs.gradle.org/current/userguide/java_library_plugin.html)
-    compileOnly group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.19.0'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.9.1'
-    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
+    compileOnly 'org.apache.logging.log4j:log4j-api:2.19.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    testImplementation 'org.assertj:assertj-core:3.23.1'
 }
 
 configurations {
@@ -77,16 +77,16 @@ publishing {
     }
     repositories {
         maven {
-            name 'sonatypeOssrh'
+            name = 'sonatypeOssrh'
             if (project.version.endsWith('-SNAPSHOT')) {
-                url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+                url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
             } else {
-                url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+                url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
             }
-            allowInsecureProtocol false
+            allowInsecureProtocol = false
             credentials PasswordCredentials, {
-                username property('ossrhUsername')
-                password property('ossrhPassword')
+                username = property('ossrhUsername')
+                password = property('ossrhPassword')
             }
         }
     }
