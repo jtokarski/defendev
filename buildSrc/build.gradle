@@ -5,8 +5,12 @@ plugins {
 
 gradlePlugin {
     plugins {
-        releaseBranches {
-            id = 'org.defendev.gradle.convention.common-library'
+        defendevCommonLibrary {
+            /*
+             * Plugin 'id' corresponds with project's 'group' (see flowable-demo/020-jooq-codegen)
+             *
+             */
+            id = 'org.defendev.common-library-convention-plugin'
             implementationClass = 'org.defendev.gradle.convention.CommonLibraryPlugin'
         }
     }

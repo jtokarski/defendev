@@ -47,8 +47,8 @@ class CommonLibraryPlugin implements Plugin<Project> {
         project.getPluginManager().apply(JavaLibraryPlugin)
 
         final JavaPluginExtension javaPluginExtension = project.getExtensions().getByType(JavaPluginExtension)
-        javaPluginExtension.sourceCompatibility = JavaVersion.VERSION_17
-        javaPluginExtension.targetCompatibility = JavaVersion.VERSION_17
+        javaPluginExtension.sourceCompatibility = JavaVersion.VERSION_25
+        javaPluginExtension.targetCompatibility = JavaVersion.VERSION_25
         javaPluginExtension.withJavadocJar();
         javaPluginExtension.withSourcesJar();
 

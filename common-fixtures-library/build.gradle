@@ -1,6 +1,6 @@
 
 plugins {
-    id 'org.defendev.gradle.convention.common-library'
+    id 'org.defendev.common-library-convention-plugin'
 }
 
 defendevCommonLibDsl {

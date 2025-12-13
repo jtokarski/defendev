@@ -16,8 +16,12 @@ public final class ErrorDto {
     private final String userMessage;
 
     /*
-     * The exceptionId is intended to be visible for the user, and the goal is to improve the quality of
-     * bug reporting by the user.
+     * The ONLY purpose of this exceptionId is to quickly match user's screenshot in bug report with log line.
+     * No deeper, broader other concept or strategy behind this.
+     * So, whenever used make sure that:
+     *   - it is logged (for example inside @ControllerAdvice class)
+     *   - it is made visible to the user.=
+     *
      */
     private final String exceptionId;
 
