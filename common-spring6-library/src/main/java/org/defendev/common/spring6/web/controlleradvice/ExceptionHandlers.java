@@ -4,8 +4,9 @@ import org.defendev.common.domain.command.result.CommandResult;
 import org.defendev.common.domain.error.ErrorDto;
 import org.defendev.common.domain.error.ErrorWrapperDto;
 import org.defendev.common.domain.exception.CommandFailedException;
+import org.defendev.common.domain.exception.DefendevIllegalArgumentException;
+import org.defendev.common.domain.exception.DefendevIllegalStateException;
 import org.defendev.common.domain.exception.QueryFailedException;
-import org.defendev.common.domain.exception.UnclassifiedException;
 import org.defendev.common.domain.query.result.QueryResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -166,9 +167,30 @@ public class ExceptionHandlers {
         };
     }
 
-    public static ResponseEntity<ErrorWrapperDto> toResponseEntity(UnclassifiedException exception,
+    public static ResponseEntity<ErrorWrapperDto> toResponseEntity(DefendevIllegalStateException exception,
                                                                    DetailProfile profile, MediaType contentType) {
         final HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        final ErrorWrapperDto errorWrapperDto;
+        if (nonNull(exception.getExceptionId())) {
+            final ErrorDto exceptionIdDto = new ErrorDto(
+                ErrorCode.exception_id.name(),
+                httpStatus.getReasonPhrase(),
+                "",
+                "",
+                exception.getExceptionId()
+            );
+            errorWrapperDto = exception.getErrorWrapperDto().prepend(exceptionIdDto);
+        } else {
+            errorWrapperDto = exception.getErrorWrapperDto();
+        }
+        return ResponseEntity.status(httpStatus)
+            .contentType(contentType)
+            .body(errorWrapperDto);
+    }
+
+    public static ResponseEntity<ErrorWrapperDto> toResponseEntity(DefendevIllegalArgumentException exception,
+                                                                   DetailProfile profile, MediaType contentType) {
+        final HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         final ErrorWrapperDto errorWrapperDto;
         if (nonNull(exception.getExceptionId())) {
             final ErrorDto exceptionIdDto = new ErrorDto(

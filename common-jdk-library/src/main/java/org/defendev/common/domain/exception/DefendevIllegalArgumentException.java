@@ -9,17 +9,22 @@ import static java.util.Objects.nonNull;
 
 
 
-public class UnclassifiedException extends RuntimeException implements IdentifiableException {
+/**
+ * Generic application exception, caused by bad user request, which doesn't fall into any other
+ * more specific category.
+ *
+ */
+public class DefendevIllegalArgumentException extends RuntimeException implements IdentifiableException {
 
     private ErrorWrapperDto errorWrapperDto;
 
     private final String exceptionId;
 
-    public UnclassifiedException(ErrorDto errorDto) {
+    public DefendevIllegalArgumentException(ErrorDto errorDto) {
         this(errorDto, false);
     }
 
-    public UnclassifiedException(ErrorDto errorDto, boolean doGenerateExceptionId) {
+    public DefendevIllegalArgumentException(ErrorDto errorDto, boolean doGenerateExceptionId) {
         this.errorWrapperDto = new ErrorWrapperDto(errorDto);
         if (doGenerateExceptionId) {
             exceptionId = IdentifiableException.generateExceptionId();
@@ -28,11 +33,11 @@ public class UnclassifiedException extends RuntimeException implements Identifia
         }
     }
 
-    public UnclassifiedException(ErrorWrapperDto errorWrapperDto) {
+    public DefendevIllegalArgumentException(ErrorWrapperDto errorWrapperDto) {
         this(errorWrapperDto, false);
     }
 
-    public UnclassifiedException(ErrorWrapperDto errorWrapperDto, boolean doGenerateExceptionId) {
+    public DefendevIllegalArgumentException(ErrorWrapperDto errorWrapperDto, boolean doGenerateExceptionId) {
         if (nonNull(errorWrapperDto)) {
             this.errorWrapperDto = errorWrapperDto;
         } else {
