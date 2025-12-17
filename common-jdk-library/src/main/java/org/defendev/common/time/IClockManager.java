@@ -2,6 +2,7 @@ package org.defendev.common.time;
 
 import java.time.Clock;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 
@@ -17,5 +18,9 @@ public interface IClockManager {
     ZonedDateTime nowZonedUtc();
 
     ZonedDateTime nowZonedEuropeWarsaw();
+
+    LocalDateTime nowLocalUtc();
+
+    LocalDateTime nowLocalEuropeWarsaw();
 
 }

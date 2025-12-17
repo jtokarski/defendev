@@ -1,8 +1,9 @@
 package org.defendev.common.time;
 
 import java.time.Clock;
-import java.time.ZonedDateTime;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 
 
@@ -47,6 +48,16 @@ public class ClockManager implements IClockManager {
     @Override
     public ZonedDateTime nowZonedUtc() {
         return ZonedDateTime.now(clockEuropeWarsaw);
+    }
+
+    @Override
+    public LocalDateTime nowLocalUtc() {
+        return LocalDateTime.now(clockUtc);
+    }
+
+    @Override
+    public LocalDateTime nowLocalEuropeWarsaw() {
+        return LocalDateTime.now(clockEuropeWarsaw);
     }
 
 }
