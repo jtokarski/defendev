@@ -69,17 +69,23 @@ public class WebTimeTravelClock extends Clock {
             final String targetHeader = attributes.getRequest().getHeader(X_TIME_TRAVEL_TARGET);
             final String referenceHeader = attributes.getRequest().getHeader(X_TIME_TRAVEL_REFERENCE);
             if (fallbackToSystem && isNull(targetHeader) && isNull(referenceHeader)) {
-                return Clock.system(zone).instant();
+                return fallbackInstant();
             }
             final ZonedDateTime targetZoned = targetZoned(targetHeader);
             final ZonedDateTime referenceZoned = referenceZoned(referenceHeader);
             final Duration offset = Duration.between(targetZoned, referenceZoned);
             final Instant systemNow = Instant.now(Clock.systemUTC());
-            final Instant targetNow = systemNow.plus(offset);
+            final Instant targetNow = systemNow.minus(offset);
             return targetNow;
+        } else if (fallbackToSystem) {
+            return fallbackInstant();
         } else {
             throw handleUnexpectedRequestAttributes(requestAttributes);
         }
+    }
+
+    private Instant fallbackInstant() {
+        return Clock.system(zone).instant();
     }
 
     private DefendevIllegalStateException handleUnexpectedRequestAttributes(RequestAttributes requestAttributes) {
@@ -131,7 +137,7 @@ public class WebTimeTravelClock extends Clock {
         }
 
         try {
-            return ZonedDateTime.parse(referenceHeader, DateTimeFormatter.ISO_DATE);
+            return ZonedDateTime.parse(referenceHeader, DateTimeFormatter.ISO_DATE_TIME);
         } catch (DateTimeParseException parseException) {
             throw new DefendevIllegalArgumentException(new ErrorDto(
                 ERROR_CODE_INVALID,
