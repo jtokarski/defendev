@@ -41,12 +41,12 @@ public class ClockManager implements IClockManager {
     }
 
     @Override
-    public ZonedDateTime nowZonedEuropeWarsaw() {
+    public ZonedDateTime nowZonedUtc() {
         return ZonedDateTime.now(clockUtc);
     }
 
     @Override
-    public ZonedDateTime nowZonedUtc() {
+    public ZonedDateTime nowZonedEuropeWarsaw() {
         return ZonedDateTime.now(clockEuropeWarsaw);
     }
 
