@@ -9,17 +9,17 @@ import java.time.ZonedDateTime;
 
 public interface IClockManager {
 
-    Clock clockUtc();
+    Clock clockZulu();
 
     Clock clockEuropeWarsaw();
 
     Instant nowInstant();
 
-    ZonedDateTime nowZonedUtc();
+    ZonedDateTime nowZonedZulu();
 
     ZonedDateTime nowZonedEuropeWarsaw();
 
-    LocalDateTime nowLocalUtc();
+    LocalDateTime nowLocalZulu();
 
     LocalDateTime nowLocalEuropeWarsaw();
 
