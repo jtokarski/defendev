@@ -88,13 +88,13 @@ class CommonLibraryPlugin implements Plugin<Project> {
         testTasks.configureEach { Test testTask -> testTask.useJUnitPlatform() }
 
         project.dependencies.add(JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME,
-            'org.junit.jupiter:junit-jupiter:5.9.1')
+            'org.junit.jupiter:junit-jupiter:6.0.1')
         // See: https://docs.gradle.org/8.3/userguide/upgrading_version_8.html#test_framework_implementation_dependencies
         project.dependencies.add(JavaPlugin.TEST_RUNTIME_ONLY_CONFIGURATION_NAME,
             'org.junit.platform:junit-platform-launcher')
 
         project.dependencies.add(JavaPlugin.TEST_IMPLEMENTATION_CONFIGURATION_NAME,
-            'org.assertj:assertj-core:3.23.1')
+            'org.assertj:assertj-core:3.27.6')
 
         final Configuration compileOnlyConfig = project.configurations
             .getByName(JavaPlugin.COMPILE_ONLY_CONFIGURATION_NAME)
