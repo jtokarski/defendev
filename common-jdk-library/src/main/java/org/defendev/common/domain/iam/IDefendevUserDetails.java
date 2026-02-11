@@ -24,4 +24,11 @@ public interface IDefendevUserDetails {
 
     Map<Privilege, Set<Long>> getPrivilegeToOwnershipUnit();
 
+    /**
+     * Ownership unit, which should be used during creation of new objects by this user.
+     *
+     * @return Id of user's main ownership unit
+     */
+    Long getMainOwnershipUnit();
+
 }

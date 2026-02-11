@@ -16,11 +16,14 @@ public class DefendevUserDetailsDto implements IDefendevUserDetails {
 
     private Map<Privilege, Set<Long>> privilegeToOwnershipUnit;
 
+    private Long mainOwnershipUnit;
+
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public DefendevUserDetailsDto(
         @JsonProperty("username") String username,
         @JsonProperty("roles") Set<String> roles,
-        @JsonProperty("privilegeToOwnershipUnit") Map<Privilege, Set<Long>> privilegeToOwnershipUnit
+        @JsonProperty("privilegeToOwnershipUnit") Map<Privilege, Set<Long>> privilegeToOwnershipUnit,
+        @JsonProperty("mainOwnershipUnit") Long mainOwnershipUnit
     ) {
         this.username = username;
         this.roles = roles;
@@ -42,4 +45,8 @@ public class DefendevUserDetailsDto implements IDefendevUserDetails {
         return privilegeToOwnershipUnit;
     }
 
+    @Override
+    public Long getMainOwnershipUnit() {
+        return mainOwnershipUnit;
+    }
 }

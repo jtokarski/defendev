@@ -10,8 +10,8 @@ defendevCommonLibDsl {
 
 dependencies {
     implementation 'org.jetbrains:annotations:23.1.0'
-    compileOnly 'org.springframework:spring-web:6.0.3'
-    compileOnly 'org.springframework.security:spring-security-web:6.0.1'
+    compileOnly 'org.springframework:spring-web:6.2.15'
+    compileOnly 'org.springframework.security:spring-security-web:6.5.7'
     compileOnly 'org.springframework.data:spring-data-commons:3.0.2'
     compileOnly 'org.springframework.data:spring-data-jpa:3.0.2'
     compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
@@ -19,6 +19,6 @@ dependencies {
     compileOnly 'org.apache.logging.log4j:log4j-api:2.19.0'
     // I definitely need better version management
     compileOnly 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
-    compileOnly 'org.defendev:common-jdk:0.0.12'
+    compileOnly 'org.defendev:common-jdk:0.0.14'
 }
 
