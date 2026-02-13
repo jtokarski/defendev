@@ -41,7 +41,7 @@ public class ExecutionContextHolder {
             .setAttribute(DEFENDEV_USER_DETAILS,  userDetails, RequestAttributes.SCOPE_REQUEST);
     }
 
-    private static IDefendevUserDetails getUserDetails() {
+    public static IDefendevUserDetails getUserDetails() {
         final IDefendevUserDetails userDetails = (IDefendevUserDetails) currentRequestAttributes()
             .getAttribute(DEFENDEV_USER_DETAILS, RequestAttributes.SCOPE_REQUEST);
         if (isNull(userDetails)) {
