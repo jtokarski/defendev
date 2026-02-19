@@ -39,8 +39,14 @@ public class QuasiLoginAuthenticationFilter extends AbstractAuthenticationProces
 
         final String quasiUsername = request.getParameter("quasiUsername");
         final String quasiFullName = request.getParameter("quasiFullName");
+        final Long quasiMainOwnershipUnit;
+        try {
+            quasiMainOwnershipUnit = Long.parseUnsignedLong(request.getParameter("quasiMainOwnershipUnit"));
+        } catch (NumberFormatException e) {
+            throw new QuasiLoginAuthenticationException("Invalid parameter value for quasiMainOwnershipUnit");
+        }
 
-        final UserDetails quasiUser = new QuasiUserDetails(quasiUsername);
+        final UserDetails quasiUser = new QuasiUserDetails(quasiUsername, quasiMainOwnershipUnit);
 
         final QuasiLoginAuthenticationToken token = new QuasiLoginAuthenticationToken(quasiUser, List.of(), false);
 

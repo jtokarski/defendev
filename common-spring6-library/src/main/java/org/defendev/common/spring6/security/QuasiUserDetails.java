@@ -11,8 +11,11 @@ import java.util.Set;
 
 public class QuasiUserDetails extends User implements IDefendevUserDetails {
 
-    public QuasiUserDetails(String username) {
+    private final Long mainOwnershipUnit;
+
+    public QuasiUserDetails(String username, Long mainOwnershipUnit) {
         super(username, "", true, true, true, true, Set.of());
+        this.mainOwnershipUnit = mainOwnershipUnit;
     }
 
     @Override
@@ -22,7 +25,11 @@ public class QuasiUserDetails extends User implements IDefendevUserDetails {
 
     @Override
     public Map<Privilege, Set<Long>> getPrivilegeToOwnershipUnit() {
-        return Map.of();
+        return Map.of(Privilege.own, Set.of(mainOwnershipUnit));
     }
 
+    @Override
+    public Long getMainOwnershipUnit() {
+        return mainOwnershipUnit;
+    }
 }
