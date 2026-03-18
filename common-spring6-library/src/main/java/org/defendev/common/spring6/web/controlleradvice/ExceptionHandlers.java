@@ -1,5 +1,6 @@
 package org.defendev.common.spring6.web.controlleradvice;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.defendev.common.domain.command.result.CommandResult;
 import org.defendev.common.domain.error.ErrorDto;
 import org.defendev.common.domain.error.ErrorWrapperDto;
@@ -11,9 +12,14 @@ import org.defendev.common.domain.query.result.QueryResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 
+import java.util.List;
+
+import static java.lang.String.format;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.defendev.common.stream.Streams.stream;
 
 
 
@@ -25,6 +31,7 @@ public class ExceptionHandlers {
     }
 
     private enum ErrorCode {
+        message_not_readable,
         query_failed_result_unknown,
         query_failed_status_unknown,
         query_failed_request_invalid,
@@ -43,6 +50,22 @@ public class ExceptionHandlers {
      *
      *
      */
+
+    public static ResponseEntity<ErrorWrapperDto> toResponseEntity(HttpMessageNotReadableException exception,
+                                                                   DetailProfile profile, MediaType contentType) {
+        final List<Throwable> causeChain = ExceptionUtils.getThrowableList(exception);
+        final List<ErrorDto> errorDtos = stream(causeChain).map(t -> new ErrorDto(
+            ErrorCode.message_not_readable.name(),
+            format("Failed to deserialize request (%s)", t.getClass().getCanonicalName()),
+            t.getMessage(),
+            "",
+            null
+        )).toList();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .contentType(contentType)
+            .body(new ErrorWrapperDto(errorDtos));
+    }
+
     public static ResponseEntity<ErrorWrapperDto> toResponseEntity(QueryFailedException exception,
                                                                    DetailProfile profile, MediaType contentType) {
         final QueryResult<?> queryResult = exception.getQueryResult();
