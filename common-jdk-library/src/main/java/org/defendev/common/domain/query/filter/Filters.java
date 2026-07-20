@@ -3,6 +3,8 @@ package org.defendev.common.domain.query.filter;
 import org.defendev.common.domain.exception.QueryFailedException;
 import org.defendev.common.domain.query.result.QueryResult;
 
+import java.util.Set;
+
 import static java.util.Objects.isNull;
 import static org.defendev.common.domain.query.result.QueryResult.Status.REQUEST_INVALID;
 
@@ -20,6 +22,13 @@ public class Filters {
             throw new QueryFailedException(new QueryResult<Void>(REQUEST_INVALID, message, message, null));
         }
         return obj;
+    }
+
+    public static <T> Set<T> specRequireNotEmpty(Set<T> set, String message) {
+        if (isNull(set) || set.isEmpty()) {
+            throw new QueryFailedException(new QueryResult<Void>(REQUEST_INVALID, message, message, null));
+        }
+        return set;
     }
 
 }

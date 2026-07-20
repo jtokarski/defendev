@@ -9,7 +9,6 @@ import org.defendev.common.domain.query.filter.Filter;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static org.defendev.common.domain.exception.QueryFailedExceptions.filterOperatorNotSupported;
 import static org.defendev.common.stream.Streams.stream;
@@ -24,40 +23,27 @@ public class PredicateSpecs {
                                                                  Path<LocalDateTime> entityPath) {
         final List<DateTimePropertyFilter> dateTimePropertyFilters = filter.getDateTimePropertyFilters();
 
-        final Optional<DateTimePropertyFilter> createZonedOptional = stream(dateTimePropertyFilters)
+        final List<DateTimePropertyFilter> propertyFilters = stream(dateTimePropertyFilters)
             .filter(propFilter -> propertyName.equals(propFilter.getProperty()))
-            .findAny();
-        if (createZonedOptional.isPresent()) {
-            final DateTimePropertyFilter createZonedFilter = createZonedOptional.get();
-            createZonedFilter.validate();
-            final ZonedDateTime dateTimeFrom = createZonedFilter.getDateTimeFrom();
-            final LocalDateTime dateTimeFromZulu = dateTimeFrom.withZoneSameInstant(ZULU_ZONE_ID).toLocalDateTime();
-            switch (createZonedFilter.getOperator()) {
-                case lessThan:
-                    predicate = criteriaBuilder.and(
+            .toList();
+
+        for (DateTimePropertyFilter propertyFilter : propertyFilters) {
+            propertyFilter.validate();
+            final ZonedDateTime dateTimeValue = propertyFilter.getValue();
+            final LocalDateTime dateTimeValueZulu = dateTimeValue.withZoneSameInstant(ZULU_ZONE_ID).toLocalDateTime();
+            switch (propertyFilter.getOperator()) {
+                case before -> predicate = criteriaBuilder.and(
                         predicate,
-                        criteriaBuilder.lessThan(entityPath, dateTimeFromZulu)
+                        criteriaBuilder.lessThan(entityPath, dateTimeValueZulu)
                     );
-                    break;
-                case greaterThanOrEqual:
-                    predicate = criteriaBuilder.and(
+                case afterOrEqual -> predicate = criteriaBuilder.and(
                         predicate,
-                        criteriaBuilder.greaterThanOrEqualTo(entityPath, dateTimeFromZulu)
+                        criteriaBuilder.greaterThanOrEqualTo(entityPath, dateTimeValueZulu)
                     );
-                    break;
-                case inRange:
-                    final ZonedDateTime dateTimeTo = createZonedFilter.getDateTimeTo();
-                    final LocalDateTime dateTimeToZulu = dateTimeTo.withZoneSameInstant(ZULU_ZONE_ID).toLocalDateTime();
-                    predicate = criteriaBuilder.and(
-                        predicate,
-                        criteriaBuilder.greaterThanOrEqualTo(entityPath, dateTimeFromZulu),
-                        criteriaBuilder.lessThan(entityPath, dateTimeToZulu)
-                    );
-                    break;
-                default:
-                    throw filterOperatorNotSupported(createZonedFilter.getOperator());
+                default -> throw filterOperatorNotSupported(propertyFilter.getOperator().name());
             }
         }
+
         return predicate;
     }
 

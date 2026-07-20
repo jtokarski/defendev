@@ -1,6 +1,5 @@
 package org.defendev.common.domain.exception;
 
-import org.defendev.common.domain.query.filter.Operator;
 import org.defendev.common.domain.query.result.QueryResult;
 
 import static java.lang.String.format;
@@ -9,7 +8,7 @@ import static java.lang.String.format;
 
 public class QueryFailedExceptions {
 
-    public static QueryFailedException filterOperatorNotSupported(Operator operator) {
+    public static QueryFailedException filterOperatorNotSupported(String operator) {
         return new QueryFailedException(new QueryResult<Void>(
             QueryResult.Status.REQUEST_INVALID,
             format("Operator not supported [%s]", operator),
