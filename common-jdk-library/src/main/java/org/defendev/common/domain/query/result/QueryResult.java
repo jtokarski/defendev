@@ -29,23 +29,24 @@ public class QueryResult<T> {
      * Meant to be an additional clarification to the 'status' field. Also, with growing number of various
      * use cases, expected to evolve into new standardized values in the 'Status' enum.
      */
-    private final String statusDetail;
+    private final String statusMessage;
 
     /*
-     * Message related with (supplementing) the 'status' in a form that can be displayed to the end user.
-     * Usually will be present for 'status' different than SUCCESS
+     * Quasi-structured, preferably (but deliberately not strictly enforced) in the form of key:value pairs,
+     * representing ids and other coordinates that might be helpful for targeting the
+     * problematic data point in request payload or problematic database record.
      */
-    private final String statusUserMessage;
+    private final String statusDetail;
 
     /*
      * The 'data' is usually (but not always) some implementation of IBaseDto or ICollectionResRep
      */
     private final T data;
 
-    public QueryResult(Status status, String statusDetail, String statusUserMessage, T data) {
+    public QueryResult(Status status, String statusMessage, String statusDetail, T data) {
         this.status = status;
+        this.statusMessage = statusMessage;
         this.statusDetail = statusDetail;
-        this.statusUserMessage = statusUserMessage;
         this.data = data;
     }
 
@@ -61,8 +62,8 @@ public class QueryResult<T> {
         return statusDetail;
     }
 
-    public String getStatusUserMessage() {
-        return statusUserMessage;
+    public String getStatusMessage() {
+        return statusMessage;
     }
 
     public T getData() {

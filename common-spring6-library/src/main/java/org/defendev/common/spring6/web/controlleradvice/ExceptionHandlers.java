@@ -90,9 +90,9 @@ public class ExceptionHandlers {
                 HttpStatus httpStatus = HttpStatus.NOT_FOUND;
                 final ErrorDto errorDto = new ErrorDto(
                     ErrorCode.query_failed_not_found.name(),
-                    httpStatus.getReasonPhrase(),
+                    queryResult.getStatusMessage(),
                     queryResult.getStatusDetail(),
-                    queryResult.getStatusUserMessage(),
+                    "Unexpected application error occurred",
                     exception.getExceptionId()
                 );
                 yield ResponseEntity.status(httpStatus)
@@ -103,9 +103,9 @@ public class ExceptionHandlers {
                 final HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
                 final ErrorDto errorDto = new ErrorDto(
                     ErrorCode.query_failed_request_invalid.name(),
-                    httpStatus.getReasonPhrase(),
+                    queryResult.getStatusMessage(),
                     queryResult.getStatusDetail(),
-                    queryResult.getStatusUserMessage(),
+                    "Unexpected application error occurred",
                     exception.getExceptionId()
                 );
                 yield ResponseEntity.status(httpStatus)
@@ -116,9 +116,9 @@ public class ExceptionHandlers {
                 final HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
                 final ErrorDto errorDto = new ErrorDto(
                     ErrorCode.query_failed_status_unknown.name(),
-                    httpStatus.getReasonPhrase(),
+                    queryResult.getStatusMessage(),
                     queryResult.getStatusDetail(),
-                    queryResult.getStatusUserMessage(),
+                    "Unexpected application error occurred",
                     exception.getExceptionId()
                 );
                 yield ResponseEntity.status(httpStatus)
