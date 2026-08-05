@@ -2,8 +2,11 @@ package org.defendev.common.domain.query.sort;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.defendev.common.domain.exception.QueryFailedException;
 
 import java.util.Objects;
+
+import static org.defendev.common.domain.query.filter.Filters.specRequireNonNull;
 
 
 
@@ -28,6 +31,11 @@ public class SortOrder {
 
     public String getProperty() {
         return property;
+    }
+
+    public void validate() throws QueryFailedException {
+        specRequireNonNull(direction, "direction is required for SortOrder");
+        specRequireNonNull(property, "property is required for SortOrder");
     }
 
     @Override
