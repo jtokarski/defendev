@@ -3,9 +3,11 @@ package org.defendev.common.domain.query;
 
 public interface QueryPageable {
 
-    int getPageNumber();
+    Integer getPageNumber();
 
-    int getPageSize();
+    Integer getPageSize();
+
+    boolean getUnpaged();
 
     default long getStartElementIndex() {
         return getPageNumber() * getPageSize();
