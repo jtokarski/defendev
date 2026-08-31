@@ -21,15 +21,18 @@ public class Collections {
      *
      * @return the count of actioned and removed elements
      *
-     * @throws NullPointerException if any argument is null
+     * @throws NullPointerException if any predicate or consumer is null
      */
     public static <E> int removeIfDo(Collection<E> collection,
                                      Predicate<? super E> predicate, 
                                      Consumer<? super E> consumer) {
-        requireNonNull(collection, "requireNonNull");
         requireNonNull(predicate, "predicate");
         requireNonNull(consumer, "consumer");
-        
+
+        if (null == collection) {
+            return 0;
+        }
+
         int removedCount = 0;
         final Iterator<E> iterator = collection.iterator();
         while (iterator.hasNext()) {
