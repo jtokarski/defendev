@@ -34,8 +34,8 @@ public class ExternalIdSetPropertyFilter extends PropertyFilter<ExternalIdSetOpe
 
     @Override
     public void validate() throws QueryFailedException {
-        specRequireNonNull(property, "property is required for DateTimePropertyFilter");
-        specRequireNonNull(operator, "operator is required for DateTimePropertyFilter");
+        specRequireNonNull(property, "property is required for ExternalIdSetPropertyFilter");
+        specRequireNonNull(operator, "operator is required for ExternalIdSetPropertyFilter");
         switch (operator) {
             case containsAll, containsAny, notContainsAll, notContainsAny -> specRequireNotEmpty(
                 value,

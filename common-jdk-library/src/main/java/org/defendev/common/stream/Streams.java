@@ -23,6 +23,12 @@ public class Streams {
             : Collections.list(enumeration).stream();
     }
 
+    public static <E> Stream<E> stream(E[] array) {
+        return isNull(array) ?
+            Stream.<E>empty()
+            : Stream.of(array);
+    }
+
     /* TODO: possibly consider variant with Iterable  */
 
 }
